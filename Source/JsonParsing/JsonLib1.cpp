@@ -26,7 +26,7 @@ void UJsonLib1::CreateTableCities()
 	FString CreateTableCities = "CREATE TABLE Cities (id INTEGER NOT NULL UNIQUE, NameCity TEXT, temp INTEGER, timestamp INTEGER);";
 	if (Database.Execute(*CreateTableCities))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "Create Cities table");
+		UE_LOG(LogTemp, Warning, TEXT("Create Cities table"));
 	}
 }
 
@@ -36,7 +36,7 @@ void UJsonLib1::CreateTableWeather()
 	FString CreateTableWeather = "CREATE TABLE Weather (temp INTEGER, feels_like INTEGER, temp_min INTEGER, temp_max INTEGER, pressure INTEGER, humidity INTEGER, NameCity TEXT, timestamp INTEGER, id INTEGER);";
 	if (Database.Execute(*CreateTableWeather))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "Create Weather table");
+		UE_LOG(LogTemp, Warning, TEXT("Create Weather table"));
 	}
 
 }
@@ -47,11 +47,11 @@ void UJsonLib1::InsertIntoCityTable(int IdCity, FString NameCity, int temp, int 
 	FString QueryUpdate = FString::Printf(TEXT("UPDATE Cities SET NameCity = \"%s\", temp = %i, timestamp = %i WHERE id = %i;"), *NameCity, temp, timestamp, IdCity);
 	if (Database.Execute(*QueryInsert))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Cities ONLOAD in BD"));
+		UE_LOG(LogTemp, Warning, TEXT("Cities ONLOAD in BD"));
 	}
 	if(Database.Execute(*QueryUpdate))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Cities UPDATE in BD"));
+		UE_LOG(LogTemp, Warning, TEXT("Cities UPDATE in BD"));
 	}
 
 }
@@ -64,7 +64,7 @@ void UJsonLib1::InsertIntoWeatherTable(FWeatherMain WeatherData)
 	//FString Query1 = "INSERT INTO Weather (NameCity) VALUES (\"asdasd\")";
 	if (Database.Execute(*Query))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Weather onload in BD"));
+		UE_LOG(LogTemp, Warning, TEXT("Weather onload in BD"));
 	}
 
 }
@@ -89,7 +89,7 @@ void UJsonLib1::GetSavedCitys(TArray<FWeatherMini>& SavedCitys)
 			SavedCitys = ArrSavedCitys;
 
 		}
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "SavedCitys onload");
+		UE_LOG(LogTemp, Warning, TEXT("SavedCitys onload"));
 	}
 	
 }
@@ -149,4 +149,6 @@ void UJsonLib1::DatabaseClose()
 {
 	Database.Close();
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "Database Close");
+	UE_LOG(LogTemp, Warning, TEXT("Database Close"));
+
 }
