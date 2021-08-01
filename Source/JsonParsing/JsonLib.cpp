@@ -67,10 +67,10 @@ void UJsonLib::httpHandler(FHttpRequestPtr HttpRequest, FHttpResponsePtr HttpRes
 		TSharedPtr<FJsonObject> WeatherMain = rootObject->GetObjectField("main");
 
 		FWeatherMain WeatherData = {
-			WeatherMain->GetIntegerField("temp"),
-			WeatherMain->GetIntegerField("feels_like"),
-			WeatherMain->GetIntegerField("temp_min"),
-			WeatherMain->GetIntegerField("temp_max"),
+			ConvertKelvinToCelsius(WeatherMain->GetIntegerField("temp")),
+			ConvertKelvinToCelsius(WeatherMain->GetIntegerField("feels_like")),
+			ConvertKelvinToCelsius(WeatherMain->GetIntegerField("temp_min")),
+			ConvertKelvinToCelsius(WeatherMain->GetIntegerField("temp_max")),
 			WeatherMain->GetIntegerField("pressure"),
 			WeatherMain->GetIntegerField("humidity"),
 			rootObject->GetStringField("name"),
