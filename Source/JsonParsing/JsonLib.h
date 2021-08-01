@@ -7,6 +7,8 @@
 #include "Runtime/Online/HTTP/Public/Http.h"
 #include "JsonLib.generated.h"
 
+DECLARE_DYNAMIC_DELEGATE(FReceivedCompleted);
+
 UCLASS()
 class JSONPARSING_API UJsonLib : public UBlueprintFunctionLibrary
 {
@@ -19,16 +21,18 @@ class JSONPARSING_API UJsonLib : public UBlueprintFunctionLibrary
 	static FHttpModule* Http;
 
 	UFUNCTION(BlueprintCallable)
-	static void DeserelizeJson();
+	static void LoadCitites();
 
 	UFUNCTION(BlueprintCallable)
-	static void Test(FString Name, TArray<FString>& CitiesName);
+	static void ContainsNameCity(FString Name, TArray<FString>& CitiesName);
 
 	UFUNCTION(BlueprintCallable)
 	static void GetIdByNameCity(FString NameCity, int& Id);
 
+	static void httpHandler(FHttpRequestPtr HttpRequest, FHttpResponsePtr HttpResponse, bool bSucceeded, FReceivedCompleted Complete);
+
 	UFUNCTION(BlueprintCallable)
-	static void GetWeatherById(int IdCity);
+	static void GetWeatherById(int IdCity, FReceivedCompleted Complete);
 
 	UFUNCTION(BlueprintCallable)
 	static int ConvertKelvinToCelsius(int Kelvin);
